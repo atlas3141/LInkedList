@@ -46,6 +46,7 @@ int main(){
   }
 }
 void printStudents(Node* head){ //go throught the list and print out thier info
+  if (!head){return;}
   head->getStudent()->printStudent();
   if (head->getNext()){
     printStudents(head->getNext());
@@ -59,7 +60,7 @@ void newStudent(Node* head){
   currentNode->setNext(new Node(new Student)); //create the new student and put them on the list
 }
 void deleteStudent(Node* head){
-  bool deleted = false;//ask witch student to delte
+bool deleted = false;//ask witch student to delte
   int deleteId;
   cout << "Give Me an ID to delte" << endl;
   cin >> deleteId;
