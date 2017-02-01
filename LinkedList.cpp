@@ -60,7 +60,7 @@ void newStudent(Node* head){
   currentNode->setNext(new Node(new Student)); //create the new student and put them on the list
 }
 void deleteStudent(Node* head){
-bool deleted = false;//ask witch student to delte
+  bool deleted = false;//ask witch student to delte
   int deleteId;
   cout << "Give Me an ID to delte" << endl;
   cin >> deleteId;
@@ -73,6 +73,7 @@ bool deleted = false;//ask witch student to delte
     if(currentNode->getStudent()->getId() == deleteId){
       lastNode->setNext(currentNode->getNext());
       delete currentNode;
+      currentNode = lastNode;
       deleted = true;
     }
   }
