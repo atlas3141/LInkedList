@@ -10,7 +10,7 @@
 using namespace std;
 
 void printStudents(Node* head);
-void newStudent(Node* head);
+void addStudent(Node* head, Student* newStudent);
 void deleteStudent(Node* current, Node* previous, int deleteId);
 float getAverage(Node* head, int level, float runningTotal);
 void wipe(Node* head);
@@ -26,7 +26,7 @@ int main(){
       printStudents(head->getNext());
     }
     else if (!strcmp(input, "ADD")){
-      newStudent(head);
+      addStudent(head,new Student);
     }
     else if (!strcmp(input, "DELETE")){
       bool deleted = false;//ask witch student to delte
@@ -60,12 +60,17 @@ void printStudents(Node* head){ //go throught the list and print out thier info
     printStudents(head->getNext());
   }
 }
-void newStudent(Node* head){
-  if (head->getNext() ){
-    newStudent(head->getNext());
+void addStudent(Node* head, Student* newStudent ){
+  if (!head->getNext()){
+    head->setNext(new Node(newStudent));
+  }
+  else if(head->getNext()->getStudent()->getId() > newStudent->getId()){
+    Node* temp = head->getNext();
+    head->setNext(new Node(newStudent)); //create the new student and put them on the list
+    head->getNext()->setNext(temp);
   }
   else{
-    head->setNext(new Node(new Student)); //create the new student and put them on the list
+    addStudent(head->getNext(),newStudent);
   }
 }
 void deleteStudent(Node* current, Node* previous, int deleteId){
