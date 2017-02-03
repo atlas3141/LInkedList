@@ -11,7 +11,7 @@ using namespace std;
 
 void printStudents(Node* head);
 void newStudent(Node* head);
-void deleteStudent(Node* head);
+void deleteStudent(Node* current, Node* previous);
 void getAverage(Node* head);
 
 int main(){
@@ -53,13 +53,14 @@ void printStudents(Node* head){ //go throught the list and print out thier info
   }
 }
 void newStudent(Node* head){
-  Node* currentNode = head;
-  while (currentNode->getNext()){
-    currentNode = currentNode->getNext();
+  if (head->getNext() ){
+    newStudent(head->getNext());
   }
-  currentNode->setNext(new Node(new Student)); //create the new student and put them on the list
+  else{
+    currentNode->setNext(new Node(new Student)); //create the new student and put them on the list
+  }
 }
-void deleteStudent(Node* head){
+void deleteStudent(Node* current, Node* previous){
   bool deleted = false;//ask witch student to delte
   int deleteId;
   cout << "Give Me an ID to delte" << endl;
