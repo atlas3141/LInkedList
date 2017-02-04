@@ -29,18 +29,23 @@ int main(){
       addStudent(head,new Student);
     }
     else if (!strcmp(input, "DELETE")){
-      bool deleted = false;//ask witch student to delte
-      int deleteId;
-      cout << "Give Me an ID to delete" << endl;
-      cin >> deleteId;
-      cin.ignore();
-      deleteStudent(head->getNext(), head, deleteId);
+      if (head->getNext()){
+	bool deleted = false;//ask witch student to delte
+	int deleteId;
+	cout << "Give Me an ID to delete" << endl;
+	cin >> deleteId;
+	cin.ignore();
+	deleteStudent(head->getNext(), head, deleteId);
+      }    
+      else{
+	cout << "Theres nothing to delete" << endl;
+      }
     }
     else if (!strcmp(input, "HELP")){
       cout << "Commands: \nPRINT\nADD\nDELETE\nAVERAGE" << endl;
     }
     else if (!strcmp(input, "AVERAGE")){
-      cout << "The average GPA is: " << setprecision(2) <<fixed << getAverage(head->getNext(),0,0) << endl;
+      cout << "The average GPA is: " << setprecision(2) <<fixed << getAverage(head,0,0) << endl;
     }
     else if (!strcmp(input, "EXIT")){
       running = false;
@@ -86,8 +91,11 @@ void deleteStudent(Node* current, Node* previous, int deleteId){
   }
 } 
 float getAverage(Node* head, int level, float runningTotal){
-  runningTotal += head->getStudent()->getGpa();
-  level++;
+  if(head->getStudent()){
+    cout << "+1" << endl;
+    runningTotal += head->getStudent()->getGpa();
+    level++;
+  }
   if(head->getNext()){
     return getAverage(head->getNext(), level, runningTotal);
   }
